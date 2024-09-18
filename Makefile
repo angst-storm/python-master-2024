@@ -5,3 +5,6 @@ init:
 create:
 	python -m django --version
 	django-admin startproject master
+
+run:
+	python master/manage.py runserver
