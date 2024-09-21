@@ -6,7 +6,7 @@ install:
 
 create:
 	python -m django --version
-	django-admin startproject master
+	django-admin startproject parseq
 
 run:
-	python master/manage.py runserver
+	python parseq/manage.py runserver
