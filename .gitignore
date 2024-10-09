@@ -162,4 +162,5 @@ cython_debug/
 #.idea/
 
 .rabbitmq
+.parsers
 .DS_Store
