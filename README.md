@@ -52,4 +52,11 @@
 
 ### Инструкция по запуску
 
-*Инструкция по запуску приложения (в docker-compose) и тестов.*
+```shell
+docker compose -f deploy/docker-compose.yaml up -d
+cd parseq
+python manage.py migrate
+python manage.py runserver
+# in parallel
+python manage.py rundramatiq
+```
