@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_dramatiq',
     'cron.apps.CronConfig'
 ]
 
@@ -122,3 +123,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DRAMATIQ_BROKER = {
+    "BROKER": "dramatiq.brokers.rabbitmq.RabbitmqBroker",
+    "OPTIONS": {
+        "url": "amqp://admin:admin@localhost:5672",
+    },
+    "MIDDLEWARE": [
+        "django_dramatiq.middleware.AdminMiddleware"
+    ]
+}
+
+DRAMATIQ_TASKS_DATABASE = "default"
