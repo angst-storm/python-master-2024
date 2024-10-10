@@ -1,7 +1,7 @@
 import random
 import requests
 
-def parse() -> dict[str, str]: 
+def parse() -> dict[str, bytearray]: 
     status_code = random.randint(100, 500)
 
     response = requests.get(f'https://http.cat/{status_code}')
