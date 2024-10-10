@@ -10,10 +10,10 @@ create:
 	python parseq/manage.py startapp cron
 
 runserver:
-	python parseq/manage.py runserver
+	(cd parseq && python manage.py runserver)
 
 rundramatiq:
-	python parseq/manage.py rundramatiq
+	(cd parseq && python manage.py rundramatiq)
 
 createsuperuser:
 	python parseq/manage.py createsuperuser --no-input
