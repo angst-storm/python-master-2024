@@ -50,10 +50,12 @@
 
 ```shell
 docker compose -f deploy/docker-compose.yaml up -d
+# setup python env
+pip install -r requirements.txt
 cd parseq
 python manage.py migrate
 python manage.py runserver
-# in parallel
+# run next in parallel
 python manage.py rundramatiq
 ```
 
