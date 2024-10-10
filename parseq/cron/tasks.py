@@ -1,9 +1,14 @@
+import os
+import uuid
 import dramatiq
 import importlib
-import os
-from django.conf import settings
-
 import importlib.util
+from django.conf import settings
+from django_apscheduler import util
+
+@util.close_old_connections
+def send_run_actor(name, path):
+    run_actor.send(str(uuid.uuid4()), name, path)
 
 def import_module_from_path(path):
     spec = importlib.util.spec_from_file_location("module_name", path)
