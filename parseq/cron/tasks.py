@@ -8,8 +8,8 @@ from django.conf import settings
 from django_apscheduler import util
 
 @util.close_old_connections
-def send_run_actor(name, path):
-    run_actor.send(str(uuid.uuid4()), name, path)
+def send_run_actor(id, name, path):
+    run_actor.send(str(uuid.uuid4()), id, name, path)
 
 def import_module_from_path(path):
     spec = importlib.util.spec_from_file_location("module_name", path)
@@ -30,10 +30,10 @@ def save_outputs(dir, files):
             f.write(content)
 
 @dramatiq.actor
-def run_actor(run_id, name, path):
+def run_actor(run_id, parser_id, parser_name, path):
     output_dir = prepare_output_dir(run_id)
     
-    print(f"Run parser {name} by {path} to {output_dir}...")
+    print(f"Run parser {parser_name} (ID: {parser_id}) by {path} to {output_dir}...")
 
     try:
         parser = import_module_from_path(path)

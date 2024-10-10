@@ -29,7 +29,7 @@ class Parser(models.Model):
 
         if instance.scheduled is not None:
             try:
-                scheduler.add_job(id=job_id, func=send_run_actor, args = (instance.name,instance.script.path))
+                scheduler.add_job(id=job_id, func=send_run_actor, args = (instance.id,instance.name,instance.script.path))
             except ConflictingIdError:
                 pass
 
