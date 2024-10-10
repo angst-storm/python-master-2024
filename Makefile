@@ -9,15 +9,16 @@ create:
 	django-admin startproject parseq
 	python parseq/manage.py startapp cron
 
-runsever:
+runserver:
 	python parseq/manage.py runserver
 
-runsever:
+rundramatiq:
 	python parseq/manage.py rundramatiq
 
 migrate:
 	python parseq/manage.py migrate
 
+.PHONY: deploy
 deploy:
 	docker compose -f deploy/docker-compose.yaml up -d
 
