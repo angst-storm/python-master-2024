@@ -3,6 +3,7 @@ import uuid
 import dramatiq
 import importlib
 import importlib.util
+import traceback
 from django.conf import settings
 from django_apscheduler import util
 
@@ -16,19 +17,31 @@ def import_module_from_path(path):
     spec.loader.exec_module(module)
     return module
 
-@dramatiq.actor
-def run_actor(run_id, name, path):
+def prepare_output_dir(run_id):
     result_dir = os.path.join(settings.MEDIA_ROOT, run_id)
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
+    return result_dir
 
-    print(f"Run parser {name} by {path} to {result_dir}")
-
-    parser = import_module_from_path(path)
-
-    results = parser.parse()
-
-    for filename, content in results.items():
-        result_path = os.path.join(result_dir, filename)
+def save_outputs(dir, files):
+    for filename, content in files.items():
+        result_path = os.path.join(dir, filename)
         with open(result_path, 'wb') as f:
             f.write(content)
+
+@dramatiq.actor
+def run_actor(run_id, name, path):
+    output_dir = prepare_output_dir(run_id)
+    
+    print(f"Run parser {name} by {path} to {output_dir}...")
+
+    try:
+        parser = import_module_from_path(path)
+        results = parser.parse()
+        save_outputs(output_dir, results)
+        print(f'{run_id} Done')
+    except Exception:
+        print(f'{run_id} Failed')
+        errors = {"error.txt": str.encode(traceback.format_exc())}
+        save_outputs(output_dir, errors)
+        raise
