@@ -20,3 +20,6 @@ migrate:
 
 deploy:
 	docker compose -f deploy/docker-compose.yaml up -d
+
+destroy:
+	docker compose -f deploy/docker-compose.yaml kill
