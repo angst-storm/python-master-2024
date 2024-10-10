@@ -15,6 +15,9 @@ runserver:
 rundramatiq:
 	python parseq/manage.py rundramatiq
 
+createsuperuser:
+	python parseq/manage.py createsuperuser --no-input
+
 migrate:
 	python parseq/manage.py migrate
 
