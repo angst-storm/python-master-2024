@@ -1,12 +1,15 @@
 from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore
 
-scheduler = BackgroundScheduler(
-    {
-        "apscheduler.jobstores.default": {
-            "class": "django_apscheduler.jobstores:DjangoJobStore"
-        },
-        'apscheduler.executors.processpool': {
-            "type": "threadpool"
-        },
-    }
-)
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.executors.pool import ThreadPoolExecutor
+
+jobstores = {
+    'default': DjangoJobStore()
+}
+
+executors = {
+    'default': ThreadPoolExecutor(),  
+}
+
+scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors)
