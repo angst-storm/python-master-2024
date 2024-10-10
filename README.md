@@ -62,5 +62,7 @@ python manage.py rundramatiq
 
 ### Задачи
 
+- Режим DEBUG=False
+- Изменение аргументов Job при изменении модели
 - Написать два теста
 - *Развернуть в Yandex Cloud + S3
