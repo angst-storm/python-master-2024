@@ -162,5 +162,7 @@ cython_debug/
 #.idea/
 
 .rabbitmq
+.postgresql
 parseq/media
 .DS_Store
+!.env
