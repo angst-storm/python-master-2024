@@ -21,12 +21,18 @@ def now_utc():
 def parse_declared(war):
     return datetime.fromisoformat(war["declared"][:-1])
 
+def is_power_of_2(num):
+    return (num & (num - 1)) == 0
+
 def parse() -> dict[str, bytearray]:
     wars_resp = requests.get(f'{url}/wars')
     wars = wars_resp.json()
 
     result = ""
-    for war_id in wars[:100]:
+    for i, war_id in enumerate(wars[:max_wars]):
+        if (is_power_of_2(i+1)):
+            print(f"Parsing: {i+1}%")
+
         war_resp = requests.get(f'{url}/wars/{war_id}')
         war = war_resp.json()
 

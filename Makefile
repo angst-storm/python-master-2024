@@ -27,3 +27,9 @@ deploy:
 
 destroy:
 	docker compose -f deploy/docker-compose.yaml kill
+
+debug-httpcat:
+	python parsers/debug.py parsers/httpcat.py
+
+debug-evewars:
+	python parsers/debug.py parsers/evewars.py

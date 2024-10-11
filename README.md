@@ -65,4 +65,7 @@ python manage.py rundramatiq
 - Режим DEBUG=False
 - Изменение аргументов Job при изменении модели
 - Написать два теста
+- Проблемы с конкуренцией за подключение к БД
+https://stackoverflow.com/questions/53578752/updating-django-models-with-multiprocessing-pool-locks-up-database
+https://stackoverflow.com/questions/8242837/django-multiprocessing-and-database-connections/10684672#10684672
 - *Развернуть в Yandex Cloud + S3
