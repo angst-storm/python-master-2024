@@ -15,11 +15,11 @@ def run(modeladmin, request, queryset):
         send_run_actor(parser.id, parser.name, parser.script.path)
 
 class ParserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'script', 'scheduled_at', 'repeat_after')
+    list_display = ('name', 'script', 'run_at', 'repeat_after')
     list_display_links = ('name',)
     actions = [run]
 
-    def scheduled_at(self, instance):
+    def run_at(self, instance):
         scheduled = instance.scheduled
         return None if scheduled is None else scheduled.strftime("%d %b %Y %H:%M:%S")
 

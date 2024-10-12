@@ -38,7 +38,7 @@ def run_actor(run_id, parser_id, parser_name, path):
         results = parser.parse()
         save_outputs(output_dir, results)
         print(f'{run_id} Done')
-    except Exception:
+    except:
         print(f'{run_id} Failed')
         errors = {"error.txt": str.encode(traceback.format_exc())}
         save_outputs(output_dir, errors)
