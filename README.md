@@ -62,5 +62,4 @@ python manage.py rundramatiq
 
 ### Задачи
 
-- Написать два теста
 - *Развернуть в Yandex Cloud + S3
