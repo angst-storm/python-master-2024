@@ -8,7 +8,11 @@ class TestCase(unittest.TestCase):
   @freeze_time("2024-10-13 00:00:00")
   def test_eve_wars(self):
     responses._add_from_file(file_path="test-evewars-responses.yaml")
-    expected = {'result.txt': str.encode("War ID 3: Alliance 1 (AID1) declared war to Corporation 2 (CID2) 5 hours ago\nWar ID 2: Corporation 2 (CID2) declared war to Alliance 1 (AID1) 11 hours ago\n")}
+    expected = {'result.txt': str.encode(
+'''War ID 3: Alliance 1 (AID1) declared war to Corporation 2 (CID2) 5 hours ago
+War ID 2: Corporation 2 (CID2) declared war to Alliance 1 (AID1) 11 hours ago
+'''
+    )}
 
     output = parse()
 

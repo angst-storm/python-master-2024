@@ -37,6 +37,9 @@ debug-evewars:
 parsers-test:
 	(cd parsers && python -m unittest)
 
+django-test:
+	(cd parseq && python manage.py test)
+
 clear:
 	rm -R deploy/.postgresql
 	rm -R deploy/.rabbitmq
