@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_dramatiq',
-    'django_apscheduler',
     'cron.apps.CronConfig'
 ]
 

@@ -3,10 +3,8 @@ from .models import Parser
 from .tasks import send_run_actor
 from django_dramatiq.models import Task
 from django_dramatiq.admin import TaskAdmin
-from django_apscheduler.models import DjangoJob, DjangoJobExecution
 from dramatiq import Message
 from django.urls import reverse
-from django.conf import settings
 from django.utils.html import format_html
 
 @admin.action(description="Run selected parsers")
@@ -29,10 +27,6 @@ class NewTaskAdmin(TaskAdmin):
         args = Message.decode(bytes(instance.message_data)).args
         return format_html('<a href="{}">{}</a>', reverse("admin:cron_parser_change", args=(args[1],)), args[2])
 
-if settings.DEBUG != True:
-    admin.site.unregister(DjangoJob)
-    admin.site.unregister(DjangoJobExecution)
 admin.site.unregister(Task)
-
 admin.site.register(Task, NewTaskAdmin)
 admin.site.register(Parser, ParserAdmin)

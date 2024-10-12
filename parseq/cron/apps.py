@@ -5,6 +5,11 @@ class CronConfig(AppConfig):
     name = 'cron'
 
     def ready(self):
+        from .models import Parser
+        from .schedule import schedule
         from .scheduler import scheduler
         
+        for parser in Parser.objects.all():
+            schedule(scheduler, parser)
+            
         scheduler.start()

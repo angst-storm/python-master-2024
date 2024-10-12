@@ -5,10 +5,9 @@ import importlib
 import importlib.util
 import traceback
 from django.conf import settings
-from django_apscheduler import util
 
-@util.close_old_connections
 def send_run_actor(id, name, path):
+    print(f"Task {id} planned")
     run_actor.send(str(uuid.uuid4()), id, name, path)
 
 def import_module_from_path(path):

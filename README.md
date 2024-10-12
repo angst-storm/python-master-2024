@@ -25,7 +25,7 @@
 - Python
 - Django
 - Dramatiq + django_dramatiq
-- APScheduler + django_apscheduler
+- APScheduler
 - UnitTest
 - RabbitMQ
 - PostgreSQL
@@ -62,10 +62,6 @@ python manage.py rundramatiq
 
 ### Задачи
 
-- Режим DEBUG=False
-- Изменение аргументов Job при изменении модели
 - Написать два теста
-- Проблемы с конкуренцией за подключение к БД
-https://stackoverflow.com/questions/53578752/updating-django-models-with-multiprocessing-pool-locks-up-database
-https://stackoverflow.com/questions/8242837/django-multiprocessing-and-database-connections/10684672#10684672
+- Мигрировать и запускать без проблем
 - *Развернуть в Yandex Cloud + S3
