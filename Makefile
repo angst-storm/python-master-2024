@@ -34,6 +34,9 @@ debug-httpcat:
 debug-evewars:
 	python parsers/debug.py parsers/evewars.py
 
+parsers-test:
+	(cd parsers && python -m unittest)
+
 clear:
 	rm -R deploy/.postgresql
 	rm -R deploy/.rabbitmq
