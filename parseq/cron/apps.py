@@ -1,3 +1,4 @@
+import sys
 from django.apps import AppConfig
 
 class CronConfig(AppConfig):
@@ -5,6 +6,9 @@ class CronConfig(AppConfig):
     name = 'cron'
 
     def ready(self):
+        if 'runserver' not in sys.argv:
+            return True
+        
         from .models import Parser
         from .schedule import schedule
         from .scheduler import scheduler

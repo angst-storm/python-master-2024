@@ -55,7 +55,7 @@ pip install -r requirements.txt
 cd parseq
 python manage.py migrate
 python manage.py createsuperuser --no-input # default - admin:admin
-python manage.py runserver
+python manage.py runserver --noreload
 # run next in parallel
 python manage.py rundramatiq
 ```
@@ -63,5 +63,4 @@ python manage.py rundramatiq
 ### Задачи
 
 - Написать два теста
-- Мигрировать и запускать без проблем
 - *Развернуть в Yandex Cloud + S3

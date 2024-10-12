@@ -10,7 +10,7 @@ create:
 	python parseq/manage.py startapp cron
 
 runserver:
-	(cd parseq && python manage.py runserver)
+	(cd parseq && python manage.py runserver --noreload)
 
 rundramatiq:
 	(cd parseq && python manage.py rundramatiq)
@@ -33,3 +33,8 @@ debug-httpcat:
 
 debug-evewars:
 	python parsers/debug.py parsers/evewars.py
+
+clear:
+	rm -R deploy/.postgresql
+	rm -R deploy/.rabbitmq
+	rm -R parseq/media

@@ -7,7 +7,6 @@ import traceback
 from django.conf import settings
 
 def send_run_actor(id, name, path):
-    print(f"Task {id} planned")
     run_actor.send(str(uuid.uuid4()), id, name, path)
 
 def import_module_from_path(path):

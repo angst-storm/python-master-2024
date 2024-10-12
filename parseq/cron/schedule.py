@@ -9,8 +9,6 @@ from .tasks import send_run_actor
 def schedule(scheduler: BackgroundScheduler, instance: Parser):
     job_id = instance.job_id
 
-    print(f"Parser {instance.id} scheduled")
-
     try:
         scheduler.pause_job(job_id)
     except JobLookupError:
@@ -29,3 +27,5 @@ def schedule(scheduler: BackgroundScheduler, instance: Parser):
             scheduler.reschedule_job(job_id, trigger=IntervalTrigger(seconds=instance.repeat_after.seconds, start_date=instance.scheduled))
 
         scheduler.resume_job(job_id)
+
+    print(f"Parser {instance.id} {instance.name} scheduled")
