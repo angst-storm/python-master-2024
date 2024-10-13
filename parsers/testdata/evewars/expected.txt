@@ -1,0 +1,2 @@
+War ID 3: Alliance 1 (AID1) declared war to Corporation 2 (CID2) 5 hours ago
+War ID 2: Corporation 2 (CID2) declared war to Alliance 1 (AID1) 11 hours ago
