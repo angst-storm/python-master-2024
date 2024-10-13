@@ -28,7 +28,7 @@ class CronTestCase(TestCase):
         data = {"action": "run", "_selected_action": self.parser.id}
         change_url = reverse("admin:cron_parser_changelist")
         self.client.login(username=self.username, password=self.password)
-        r = self.client.post(change_url, data)
+        self.client.post(change_url, data)
         self.client.logout()
         tasks = Task.tasks.all()
         self.assertTrue(len(tasks) > 0)
