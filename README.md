@@ -73,4 +73,16 @@ python manage.py rundramatiq
 (cd parseq && python manage.py test)
 ```
 
+#### Makefile
+
 Многие команды реализованы в `Makefile`. Для их использования установите [Make](https://www.gnu.org/software/make/).
+
+```shell
+make deploy
+make init
+make test
+make runserver
+make rundramatiq
+make destroy
+make clear
+```

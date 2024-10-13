@@ -1,4 +1,4 @@
-init:
+venv:
 	python -m venv venv
 
 install:
@@ -29,6 +29,11 @@ destroy:
 	docker compose -f deploy/docker-compose.yaml kill
 	docker compose -f deploy/docker-compose.yaml rm --force
 
+clear:
+	rm -R deploy/.postgresql
+	rm -R deploy/.rabbitmq
+	rm -R parseq/media
+
 debug-httpcat:
 	python parsers/debug.py parsers/httpcat.py
 
@@ -43,7 +48,4 @@ django-test:
 
 test: parsers-test django-test
 
-clear:
-	rm -R deploy/.postgresql
-	rm -R deploy/.rabbitmq
-	rm -R parseq/media
+init: install migrate createsuperuser
