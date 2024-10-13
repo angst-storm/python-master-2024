@@ -59,7 +59,3 @@ python manage.py runserver --noreload
 # run next in parallel
 python manage.py rundramatiq
 ```
-
-### Задачи
-
-- *Развернуть в Yandex Cloud + S3
