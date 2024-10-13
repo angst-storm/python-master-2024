@@ -41,6 +41,8 @@ parsers-test:
 django-test:
 	(cd parseq && python manage.py test)
 
+test: parsers-test django-test
+
 clear:
 	rm -R deploy/.postgresql
 	rm -R deploy/.rabbitmq
