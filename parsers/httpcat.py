@@ -1,9 +1,16 @@
 import random
+from itertools import chain
 
 import requests
 
-http_codes = (
-    range(100, 102) + range(200, 207) + range(300, 308) + range(400, 418) + (500, 506)
+http_codes = list(
+    chain(
+        range(100, 102),
+        range(200, 207),
+        range(300, 308),
+        range(400, 418),
+        range(500, 506),
+    )
 )
 
 
