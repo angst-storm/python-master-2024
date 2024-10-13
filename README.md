@@ -30,32 +30,47 @@
 - RabbitMQ
 - PostgreSQL
 - Docker
-- Yandex Cloud
 
 ### Описание
 
-Приложение, база данных [PostgreSQL](https://www.postgresql.org/), брокер [RabbitMQ](https://www.rabbitmq.com/), развернуты в [Docker](https://www.docker.com/) на виртуальной машине на [Yandex Cloud](https://yandex.cloud/ru/). Доступно по адресу [https://parseq.sergei-kiprin.ru](https://parseq.sergei-kiprin.ru). Для хранения скриптов и файлов используется S3 Object Storage.
+Приложение управляется с помощью панели администратора Django. Для авторизации по умолчанию используется username `admin` и пароль `admin`.
 
-Приложение управляется с помощью панели администратора Django. В ней зарегистрированы классы `Parser` и `Task`. `Parser` содержит обязательное поле `name`, текстовое поле `description`, обязательный файл `script`, поля для конфигурации автоматического запуска (`scheduled_time`, `repeat_after`). Пользователь может создавать объекты класса `Parser` и настраивать их. `Task` содержит `run_id` в формате UUID, `status` (enum - `enqueued`, `running`, `completed`, `error`), `created_time`, `updated_time` и ссылку на объект `Parser`.
+В ней зарегистрированы классы `Parser` и `Task`. `Parser` содержит обязательное поле `name`, текстовое поле `description`, обязательный файл `script`, поля для конфигурации автоматического запуска (`scheduled_time`, `repeat_after`). Пользователь может создавать объекты класса `Parser` и настраивать их. `Task` содержит `run_id` в формате UUID, `status` (enum - `enqueued`, `running`, `completed`, `error`), `created_time`, `updated_time` и ссылку на объект `Parser`. Task реализован в библиотеке [django_dramatiq](https://github.com/Bogdanp/django_dramatiq).
 
-Скрипты парсеров пишутся на языке Python в файле с форматом `.py`. Скрипт может импортировать только библиотеки, которые были заранее установлены для приложения (см. requirements.txt). Скрипт должен реализовавать функцию `parse`, которая не принимает аргументов и возвращает словарь с файлами-результатами в формате `{'filename': bytes(file_content)}`. После завершения скрипта файлы-результаты можно получить по ссылке `<url>/<run_id>/<filename>`. Например: `http://localhost:8000/69bff530-1437-4891-b35c-1d5242057b40/result.png`. В случае, если парсер завершается с ошибкой, текст ошибки можно получить в панели администратора и по ссылке `<url>/<run_id>/error.txt`.
+Скрипты парсеров пишутся на языке Python в файле с форматом `.py`. Скрипт может импортировать только библиотеки, которые были заранее установлены для приложения (см. `requirements.txt`). Скрипт должен реализовывать функцию `parse`, которая не принимает аргументов и возвращает словарь с файлами-результатами в формате `{'filename': b'content'}`. После завершения скрипта файлы-результаты можно получить по ссылке `<url>/<run_id>/<filename>`. Например: `http://localhost:8000/69bff530-1437-4891-b35c-1d5242057b40/result.png`. В случае, если парсер завершается с ошибкой, текст ошибки можно получить в панели администратора и по ссылке `<url>/<run_id>/error.txt`.
 
-После активации ручного запуска в панели администратора парсер ставится в очередь RabbitMQ и запускается с помощью Dramatiq. После настройки автоматического запуска, планированием запуска занимается [APScheduler](https://apscheduler.readthedocs.io/en/3.x/) ([рекомендумая библиотека](https://dramatiq.io/cookbook.html#scheduling) для Dramatiq). По достижению необходимого времени, Scheduler передает данные для запуска в Dramatiq. Лучше выбирать время для запуска как минимум через три минуты от текущего момента, так как APScheduler не запускает задачи немедленно.
+После активации ручного запуска в панели администратора парсер ставится в очередь RabbitMQ и запускается с помощью Dramatiq. После настройки автоматического запуска, планированием запуска занимается [APScheduler](https://apscheduler.readthedocs.io/en/3.x/) ([рекомендумая библиотека](https://dramatiq.io/cookbook.html#scheduling) для Dramatiq). По достижению необходимого времени, планировщик передает данные для запуска в Dramatiq.
 
-Реализованы два парсера - парсер, получающий случайную картинку кота, соответствующую коду HTTP (https://http.cat/) и парсер, представляющий в человекочитаемом виде информацию о войнах в игре Eve Online, объявленных за последние 24 часа.
+Реализованы два парсера - парсер, получающий случайную картинку кота, соответствующую коду HTTP (`parsers/httpcat.py`) и парсер, представляющий в человекочитаемом виде информацию о войнах в игре Eve Online, объявленных за последние 24 часа (`parsers/evewars.py`). Для демонстрации возможностей обработки ошибок, так же реализован парсер `parsers/error.py`, выбрасывающий исключение при запуске.
 
-Для тестирования используются возможности `django.test` и библиотека [UnitTest](https://docs.python.org/3/library/unittest.html).
+Реализованы два теста - тест парсера `evewars.py` с использованием [UnitTest](https://docs.python.org/3/library/unittest.html) (см. `parsers/test.py`) и тест ручного запуска парсеров в Django Admin с использованием UnitTest и `django.test` (см. `parseq/cron/tests.py`).
 
-### Инструкция по запуску
+База данных [PostgreSQL](https://www.postgresql.org/) и брокер [RabbitMQ](https://www.rabbitmq.com/) разворачиваются в [Docker](https://www.docker.com/) с помощью docker-compose.
+
+### Использование
+
+#### Запуск
+
+Подготовка:
+- Установите Docker
+- Настройте окружение Python
 
 ```shell
 docker compose -f deploy/docker-compose.yaml up -d
-# setup python env
 pip install -r requirements.txt
 cd parseq
 python manage.py migrate
-python manage.py createsuperuser --no-input # default - admin:admin
+python manage.py createsuperuser --no-input # По умолчанию - admin:admin
 python manage.py runserver --noreload
-# run next in parallel
+# Запустите в другом процессе
 python manage.py rundramatiq
 ```
+
+#### Тесты
+
+```shell
+(cd parsers && python -m unittest)
+(cd parseq && python manage.py test)
+```
+
+Многие команды реализованы в `Makefile`. Для их использования установите [Make](https://www.gnu.org/software/make/).
