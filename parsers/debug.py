@@ -1,8 +1,10 @@
-import io
-import sys
 import importlib
 import importlib.util
+import io
+import sys
+
 from PIL import Image, UnidentifiedImageError
+
 
 def import_module_from_path(path):
     spec = importlib.util.spec_from_file_location("module_name", path)
@@ -10,9 +12,10 @@ def import_module_from_path(path):
     spec.loader.exec_module(module)
     return module
 
+
 def pretty_print(outputs):
     for filename, content in outputs.items():
-        print(f'\n{filename}:\n')
+        print(f"\n{filename}:\n")
 
         try:
             print(content.decode())
@@ -27,8 +30,9 @@ def pretty_print(outputs):
         except UnidentifiedImageError:
             print(content)
 
+
 if __name__ == "__main__":
-  path = sys.argv[1]
-  module = import_module_from_path(path)
-  outputs = module.parse()
-  pretty_print(outputs)
+    path = sys.argv[1]
+    module = import_module_from_path(path)
+    outputs = module.parse()
+    pretty_print(outputs)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 
+
 class Parser(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -14,9 +15,10 @@ class Parser(models.Model):
 
     @staticmethod
     def post_save(sender, instance, created, **kwargs):
-        from .scheduler import scheduler
         from .schedule import schedule
-        
+        from .scheduler import scheduler
+
         schedule(scheduler, instance)
+
 
 post_save.connect(Parser.post_save, sender=Parser)

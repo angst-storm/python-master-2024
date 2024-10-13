@@ -1,5 +1,6 @@
 class ParseqIntentionalException(BaseException):
     pass
 
-def parse() -> dict[str, bytearray]: 
+
+def parse() -> dict[str, bytearray]:
     raise ParseqIntentionalException
