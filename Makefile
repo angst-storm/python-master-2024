@@ -21,20 +21,13 @@ createsuperuser:
 migrate:
 	python parseq/manage.py migrate
 
-deploy-db:
-	docker compose -f deploy/docker-compose-db.yaml up -d
-
-destroy-db:
-	docker compose -f deploy/docker-compose-db.yaml kill
-	docker compose -f deploy/docker-compose-db.yaml rm --force
-
 .PHONY: deploy
 deploy:
-	docker compose -f deploy/docker-compose-dev.yaml --project-directory . up -d --build
+	docker compose -f deploy/docker-compose.yaml up -d
 
 destroy:
-	docker compose -f deploy/docker-compose-dev.yaml --project-directory . kill
-	docker compose -f deploy/docker-compose-dev.yaml --project-directory . rm --force
+	docker compose -f deploy/docker-compose.yaml kill
+	docker compose -f deploy/docker-compose.yaml rm --force
 
 debug-httpcat:
 	python parsers/debug.py parsers/httpcat.py
@@ -52,4 +45,3 @@ clear:
 	rm -R deploy/.postgresql
 	rm -R deploy/.rabbitmq
 	rm -R parseq/media
-	rm -R deploy/dev
