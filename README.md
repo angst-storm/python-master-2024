@@ -84,5 +84,5 @@ make test
 make runserver
 make rundramatiq
 make destroy
-make clear
+make clear -i
 ```
