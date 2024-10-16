@@ -38,7 +38,7 @@ def save_outputs(output_dir, files):
     Args:
         output_dir (str): Путь до папки, где необходимо сохранить данные
         files (dict[str, bytearray]): Словарь с именами файлов -> содержимым
-        в формате массива байтов
+            в формате массива байтов
     """
     for filename, content in files.items():
         result_path = os.path.join(output_dir, filename)

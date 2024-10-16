@@ -1,3 +1,5 @@
+"""Модуль позволяет запустить любой парсер и вывести в консоль результаты работы или ошибку"""
+
 import importlib
 import importlib.util
 import io
@@ -7,6 +9,7 @@ from PIL import Image, UnidentifiedImageError
 
 
 def import_module_from_path(path):
+    """Импортирует скрипт из файла по заданному пути path"""
     spec = importlib.util.spec_from_file_location("module_name", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -14,6 +17,12 @@ def import_module_from_path(path):
 
 
 def pretty_print(outputs):
+    """
+    Выводит в консоль результаты работы парсера:
+    1. Если это текстовый файл - печатает в консоль декодированный вариант
+    2. Если изображение - показывает с помощью Pillow
+    3. В остальных случаях - печатает в консоль массив байт
+    """
     for filename, content in outputs.items():
         print(f"\n{filename}:\n")
 

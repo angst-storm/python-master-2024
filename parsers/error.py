@@ -1,3 +1,5 @@
+"""Парсер, который выбрасывает "намеренную" ошибку (для целей тестирования)"""
+
 class ParseqIntentionalException(BaseException):
     pass
 
