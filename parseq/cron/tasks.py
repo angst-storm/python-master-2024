@@ -16,7 +16,7 @@ def send_run_actor(parser_id):
 
 
 def import_module_from_path(path):
-    """Импортирует скрипт из файла по заданному пути"""
+    """Импортирует скрипт из файла по заданному пути path"""
     spec = importlib.util.spec_from_file_location("module_name", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
