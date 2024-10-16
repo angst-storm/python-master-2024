@@ -34,5 +34,3 @@ class CronTestCase(TestCase):
         self.assertTrue(len(tasks) > 0)
         task_message = Message.decode(bytes(tasks.first().message_data))
         self.assertEqual(task_message.args[1], self.parser.id)
-        self.assertEqual(task_message.args[2], self.parser.name)
-        self.assertEqual(task_message.args[3], self.parser.script.path)

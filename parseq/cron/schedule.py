@@ -8,6 +8,7 @@ from .tasks import send_run_actor
 
 
 def schedule(scheduler: BackgroundScheduler, instance: Parser):
+    """Добавляет планирувщику scheduler задачу следить за парсером instance"""
     job_id = instance.job_id
 
     try:
@@ -20,13 +21,13 @@ def schedule(scheduler: BackgroundScheduler, instance: Parser):
             scheduler.modify_job(
                 job_id,
                 func=send_run_actor,
-                args=(instance.id, instance.name, instance.script.path),
+                args=(instance.id,),
             )
         except JobLookupError:
             scheduler.add_job(
                 id=job_id,
                 func=send_run_actor,
-                args=(instance.id, instance.name, instance.script.path),
+                args=(instance.id,),
             )
 
         if instance.repeat_after is None:

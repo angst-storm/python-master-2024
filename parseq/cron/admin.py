@@ -8,13 +8,14 @@ from dramatiq import Message
 from .models import Parser
 from .tasks import send_run_actor
 
-time_template = "%d %b %Y %H:%M:%S"
+TIME_TEMPLATE = "%d %b %Y %H:%M:%S"
 
 
 @admin.action(description="Run selected parsers")
 def run(modeladmin, request, queryset):
+    """Django Admin Action, который cтавит в очередь Dramatiq все выделенные парсеры"""
     for parser in queryset.all():
-        send_run_actor(parser.id, parser.name, parser.script.path)
+        send_run_actor(parser.id)
 
 
 class ParserAdmin(admin.ModelAdmin):
@@ -24,28 +25,30 @@ class ParserAdmin(admin.ModelAdmin):
 
     def _scheduled_at(self, instance):
         scheduled = instance.scheduled
-        return None if scheduled is None else scheduled.strftime("%d %b %Y %H:%M:%S")
+        return None if scheduled is None else scheduled.strftime(TIME_TEMPLATE)
 
 
 class NewTaskAdmin(TaskAdmin):
-    list_display = ("run_id", "status", "created", "updated", "parser")
+    list_display = ("_run_id", "status", "_created", "_updated", "_parser")
 
-    def run_id(self, instance):
+    def _run_id(self, instance):
         return Message.decode(bytes(instance.message_data)).args[0]
 
-    def parser(self, instance):
-        args = Message.decode(bytes(instance.message_data)).args
+    def _parser(self, instance):
+        """Возвращает ссылку на запущенный парсер"""
+        parser_id = Message.decode(bytes(instance.message_data)).args[1]
+        parser = Parser.objects.get(id=parser_id)
         return format_html(
             '<a href="{}">{}</a>',
-            reverse("admin:cron_parser_change", args=(args[1],)),
-            args[2],
+            reverse("admin:cron_parser_change", args=(parser_id,)),
+            parser.name,
         )
 
-    def created(self, instance):
-        return instance.created_at.strftime("%d %b %Y %H:%M:%S")
+    def _created(self, instance):
+        return instance.created_at.strftime(TIME_TEMPLATE)
 
-    def updated(self, instance):
-        return instance.updated_at.strftime("%d %b %Y %H:%M:%S")
+    def _updated(self, instance):
+        return instance.updated_at.strftime(TIME_TEMPLATE)
 
 
 admin.site.unregister(Task)
