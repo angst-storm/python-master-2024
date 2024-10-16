@@ -31,7 +31,7 @@ def get_participant_data(participant):
 def war_description(war, aggressor, defender, hours_delta):
     """Возращает строку с описание войны в заданном формате"""
     return f'War ID {war["id"]}: {aggressor["name"]} ({aggressor["ticker"]}) \
-        declared war to {defender["name"]} ({defender["ticker"]}) {hours_delta} hours ago'
+declared war to {defender["name"]} ({defender["ticker"]}) {hours_delta} hours ago'
 
 
 def now_utc():

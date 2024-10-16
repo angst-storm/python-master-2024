@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -137,10 +138,21 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+TEST_DRAMATIQ_BROKER = "test" in sys.argv
+
 DRAMATIQ_BROKER = {
-    "BROKER": "dramatiq.brokers.rabbitmq.RabbitmqBroker",
-    "OPTIONS": {
-        "url": f"amqp://{os.environ['RABBITMQ_USER']}:{os.environ['RABBITMQ_PASSWORD']}@{os.environ['RABBITMQ_HOST']}:{os.environ['RABBITMQ_PORT']}",
+    "BROKER": "dramatiq.brokers.stub.StubBroker"
+    if TEST_DRAMATIQ_BROKER
+    else "dramatiq.brokers.rabbitmq.RabbitmqBroker",
+    "OPTIONS": {}
+    if TEST_DRAMATIQ_BROKER
+    else {
+        "url": "amqp://{}:{}@{}:{}".format(
+            os.environ["RABBITMQ_USER"],
+            os.environ["RABBITMQ_PASSWORD"],
+            os.environ["RABBITMQ_HOST"],
+            os.environ["RABBITMQ_PORT"],
+        ),
     },
     "MIDDLEWARE": ["django_dramatiq.middleware.AdminMiddleware"],
 }
