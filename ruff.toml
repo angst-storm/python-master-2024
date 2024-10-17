@@ -1,4 +1,10 @@
 [lint]
+
+# Пропустил:
+# T20 - потому что использую print
+# ARG - потому что в Django приходится оставлять неиспользуемые аргументы в переопределяемых методах
+# ANN - чтобы не ломать слабую типизацию Python
+
 select = [
     "A",      # flake8-builtins, https://beta.ruff.rs/docs/rules/#flake8-builtins-a
     "B",      # flake8-bugbear, https://beta.ruff.rs/docs/rules/#flake8-bugbear-b
