@@ -20,7 +20,7 @@ http_codes = list(
 
 
 def parse() -> dict[str, bytearray]:
-    """Функция парсера - полчает случайный код HTTP и запрашивает изображение"""
+    """Функция парсера - получает случайный код HTTP и запрашивает изображение"""
     status_code = random.choice(http_codes)
 
     response = requests.get(f"https://http.cat/{status_code}")

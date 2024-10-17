@@ -29,18 +29,18 @@ def get_participant_data(participant):
 
 
 def war_description(war, aggressor, defender, hours_delta):
-    """Возращает строку с описание войны в заданном формате"""
+    """Возращает строку с описанием войны в заданном формате"""
     return f'War ID {war["id"]}: {aggressor["name"]} ({aggressor["ticker"]}) \
 declared war to {defender["name"]} ({defender["ticker"]}) {hours_delta} hours ago'
 
 
 def now_utc():
-    """Возвращает текущее время в часовом поясе UTC"""
+    """Возвращает текущее время в часовом поясе UTC в формате YYYY-MM-DDThh:mm:ss"""
     return datetime.now(timezone.utc).replace(tzinfo=None, microsecond=0)
 
 
 def parse_declared(war):
-    """Парсит время объявления войны"""
+    """Парсит время объявления войны и приводит к формату YYYY-MM-DDThh:mm:ss"""
     return datetime.fromisoformat(war["declared"][:-1])
 
 
