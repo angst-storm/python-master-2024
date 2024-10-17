@@ -17,6 +17,7 @@ select = [
     "G",      # flake8-logging-format, https://beta.ruff.rs/docs/rules/#flake8-logging-format-g
     "I",      # isort, https://beta.ruff.rs/docs/rules/#isort-i
     "ICN",    # flake8-import-conventions, https://beta.ruff.rs/docs/rules/#flake8-import-conventions-icn
+    "INP",    # flake8-no-pep420, https://beta.ruff.rs/docs/rules/#flake8-no-pep420-inp
     "INT",    # flake8-gettext, https://beta.ruff.rs/docs/rules/#flake8-gettext-int
     "ISC",    # flake8-implicit-str-concat, https://beta.ruff.rs/docs/rules/#flake8-implicit-str-concat-isc
     "N",      # pep8-naming, https://beta.ruff.rs/docs/rules/#pep8-naming-n
