@@ -1,8 +1,8 @@
 import importlib
 import importlib.util
-import os
 import traceback
 import uuid
+from pathlib import Path
 
 import dramatiq
 from django.conf import settings
@@ -25,9 +25,9 @@ def import_module_from_path(path):
 
 def prepare_output_dir(run_id):
     """Создает директорию для хранения результатов работы парсера"""
-    output_dir = os.path.join(settings.MEDIA_ROOT, run_id)
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    output_dir = Path(settings.MEDIA_ROOT) / run_id
+    if not output_dir.exists():
+        output_dir.mkdir(parents=True)
     return output_dir
 
 
@@ -41,8 +41,8 @@ def save_outputs(output_dir, files):
             в формате массива байтов
     """
     for filename, content in files.items():
-        result_path = os.path.join(output_dir, filename)
-        with open(result_path, "wb") as f:
+        result_path = output_dir / filename
+        with Path(result_path).open("wb") as f:
             f.write(content)
 
 

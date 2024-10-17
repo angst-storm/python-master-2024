@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from django.contrib.auth.models import User
 from django.core.files import File
 from django.core.files.storage import default_storage
@@ -16,7 +18,7 @@ class CronTestCase(TestCase):
         self.user = User.objects.create_superuser(
             self.username, "admin@example.com", self.password
         )
-        with open("../parsers/httpcat.py") as script:
+        with Path("../parsers/httpcat.py").open() as script:
             path = default_storage.save("test/httpcat.py", File(script))
         self.parser = Parser.objects.create(
             name="httpcat",

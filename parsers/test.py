@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 
 import responses
 from evewars import parse
@@ -13,7 +14,7 @@ class TestCase(unittest.TestCase):
 
         output = parse()
 
-        with open("testdata/evewars/expected.txt", "rb") as expected:
+        with Path("testdata/evewars/expected.txt").open("rb") as expected:
             assert output == {"result.txt": expected.read()}
 
     @responses.activate
@@ -23,7 +24,7 @@ class TestCase(unittest.TestCase):
 
         output = parse()
 
-        with open("testdata/evewars/expected-realdata.txt", "rb") as expected:
+        with Path("testdata/evewars/expected-realdata.txt").open("rb") as expected:
             assert output == {"result.txt": expected.read()}
 
 

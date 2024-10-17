@@ -27,6 +27,7 @@ select = [
     "PLR",    # pylint-refactor, https://beta.ruff.rs/docs/rules/#refactor-plr
     "PLW",    # pylint-warning, https://beta.ruff.rs/docs/rules/#warning-plw
     "PT",     # flake8-pytest-style, https://beta.ruff.rs/docs/rules/#flake8-pytest-style-pt
+    "PTH",    # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
     "PYI",    # flake8-pyi, https://beta.ruff.rs/docs/rules/#flake8-pyi-pyi
     "Q",      # flake8-quotes, https://beta.ruff.rs/docs/rules/#flake8-quotes-q
     "RET",    # flake8-return, https://beta.ruff.rs/docs/rules/#flake8-return-ret
