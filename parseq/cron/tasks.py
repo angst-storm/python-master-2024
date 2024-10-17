@@ -57,7 +57,7 @@ def run_actor(run_id, parser_id):
     parser = Parser.objects.get(id=parser_id)
     path = parser.script.path
 
-    print(f"Run parser {parser.name} (ID: {parser_id}) by {path} to {output_dir}...")
+    print(f"Run {parser} by {path} to {output_dir}...")
 
     try:
         parser = import_module_from_path(path)

@@ -11,6 +11,11 @@ from .tasks import send_run_actor
 TIME_TEMPLATE = "%d %b %Y %H:%M:%S"
 
 
+def get_args(task):
+    """Возвращает массив аргументов запуска актора Task."""
+    return Message.decode(bytes(task.message_data)).args
+
+
 @admin.action(description="Run selected parsers")
 def run(modeladmin, request, queryset):
     """Django Admin Action, который cтавит в очередь Dramatiq все выделенные парсеры."""
@@ -29,19 +34,18 @@ class ParserAdmin(admin.ModelAdmin):
 
 
 class NewTaskAdmin(TaskAdmin):
-    list_display = ("_run_id", "status", "_created", "_updated", "_parser")
+    list_display = ("_run_id", "status", "_created", "_updated", "_parser_id")
 
     def _run_id(self, instance):
-        return Message.decode(bytes(instance.message_data)).args[0]
+        return get_args(instance)[0]
 
-    def _parser(self, instance):
+    def _parser_id(self, instance):
         """Возвращает ссылку на запущенный парсер."""
-        parser_id = Message.decode(bytes(instance.message_data)).args[1]
-        parser = Parser.objects.get(id=parser_id)
+        parser_id = get_args(instance)[1]
         return format_html(
             '<a href="{}">{}</a>',
             reverse("admin:cron_parser_change", args=(parser_id,)),
-            parser.name,
+            parser_id,
         )
 
     def _created(self, instance):
