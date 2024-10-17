@@ -1,4 +1,4 @@
-"""Парсер, который выбрасывает "намеренную" ошибку (для целей тестирования)"""
+"""Парсер, который выбрасывает "намеренную" ошибку (для целей тестирования)."""
 
 
 class ParseqIntentionalException(BaseException):
@@ -6,4 +6,5 @@ class ParseqIntentionalException(BaseException):
 
 
 def parse() -> dict[str, bytearray]:
+    """Функция парсинга."""
     raise ParseqIntentionalException

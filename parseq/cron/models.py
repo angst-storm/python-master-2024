@@ -10,6 +10,7 @@ class Parser(models.Model):
     repeat_after = models.DurationField(null=True, blank=True)
 
     def __str__(self):
+        """Return a string representation of the Parser."""
         return f"Parser({self.id}, {self.name})"
 
     @property

@@ -13,7 +13,7 @@ TIME_TEMPLATE = "%d %b %Y %H:%M:%S"
 
 @admin.action(description="Run selected parsers")
 def run(modeladmin, request, queryset):
-    """Django Admin Action, который cтавит в очередь Dramatiq все выделенные парсеры"""
+    """Django Admin Action, который cтавит в очередь Dramatiq все выделенные парсеры."""
     for parser in queryset.all():
         send_run_actor(parser.id)
 
@@ -35,7 +35,7 @@ class NewTaskAdmin(TaskAdmin):
         return Message.decode(bytes(instance.message_data)).args[0]
 
     def _parser(self, instance):
-        """Возвращает ссылку на запущенный парсер"""
+        """Возвращает ссылку на запущенный парсер."""
         parser_id = Message.decode(bytes(instance.message_data)).args[1]
         parser = Parser.objects.get(id=parser_id)
         return format_html(

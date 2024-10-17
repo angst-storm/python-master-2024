@@ -5,6 +5,7 @@ select = [
     "BLE",    # flake8-blind-except, https://beta.ruff.rs/docs/rules/#flake8-blind-except-ble
     "C90",    # mccabe, https://beta.ruff.rs/docs/rules/#mccabe-c90
     "COM",    # flake8-commas, https://beta.ruff.rs/docs/rules/#flake8-commas-com
+    "D",      # pydocstyle, https://beta.ruff.rs/docs/rules/#pydocstyle-d
     "DJ",     # flake8-django, https://beta.ruff.rs/docs/rules/#flake8-django-dj
     "DTZ",    # flake8-datetimez, https://beta.ruff.rs/docs/rules/#flake8-datetimez-dtz
     "E",      # pycodestyle-error, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
@@ -47,6 +48,12 @@ select = [
 ]
 
 ignore = [
+    "D100",   # missing docstring in public module
+    "D101",   # missing docstring in public class
+    "D102",   # missing docstring in public method
+    "D104",   # missing docstring in public package
+    "D203",   # one blank line required before class docstring
+    "D213",   # multi-line docstring summary should start at the second line
     "COM812", # missing trailing comma in a tuple
     "ISC001", # implicit string concatenation
 ]

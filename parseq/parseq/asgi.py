@@ -1,5 +1,4 @@
-"""
-ASGI config for parseq project.
+"""ASGI config for parseq project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

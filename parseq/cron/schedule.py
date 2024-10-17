@@ -10,10 +10,11 @@ from .tasks import send_run_actor
 
 
 def schedule(scheduler: BackgroundScheduler, instance: Parser):
-    """
+    """Настраивает автоматический запуск парсера.
+
     Добавляет в планировщик scheduler задачу запустить парсер instance
     в определенный момент instance.scheduled
-    и/или с определенной периодичностью instance.repeat_after
+    и/или с определенной периодичностью instance.repeat_after.
     """
     job_id = instance.job_id
 

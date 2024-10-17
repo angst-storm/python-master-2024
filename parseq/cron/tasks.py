@@ -11,12 +11,12 @@ from .models import Parser
 
 
 def send_run_actor(parser_id):
-    """Создает Run ID и отправляет актор в Dramatiq"""
+    """Создает Run ID и отправляет актор в Dramatiq."""
     run_actor.send(str(uuid.uuid4()), parser_id)
 
 
 def import_module_from_path(path):
-    """Импортирует скрипт из файла по заданному пути path"""
+    """Импортирует скрипт из файла по заданному пути path."""
     spec = importlib.util.spec_from_file_location("module_name", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -24,7 +24,7 @@ def import_module_from_path(path):
 
 
 def prepare_output_dir(run_id):
-    """Создает директорию для хранения результатов работы парсера"""
+    """Создает директорию для хранения результатов работы парсера."""
     output_dir = Path(settings.MEDIA_ROOT) / run_id
     if not output_dir.exists():
         output_dir.mkdir(parents=True)
@@ -32,13 +32,13 @@ def prepare_output_dir(run_id):
 
 
 def save_outputs(output_dir, files):
-    """
-    Сохраняет результаты работы парсера в выбранную директорию
+    """Сохраняет результаты работы парсера в выбранную директорию.
 
     Args:
         output_dir (str): Путь до папки, где необходимо сохранить данные
         files (dict[str, bytearray]): Словарь с именами файлов -> содержимым
             в формате массива байтов
+
     """
     for filename, content in files.items():
         result_path = output_dir / filename
@@ -48,8 +48,10 @@ def save_outputs(output_dir, files):
 
 @dramatiq.actor
 def run_actor(run_id, parser_id):
-    """Актор Dramatiq, запускающий скрипт парсера с ID parser_id
-    и сохраняющий результаты работы или ошибку"""
+    """Актор Dramatiq, запускающий скрипт парсера.
+
+    Сохраняет результаты работы парсера или ошибку.
+    """
     output_dir = prepare_output_dir(run_id)
 
     parser = Parser.objects.get(id=parser_id)
