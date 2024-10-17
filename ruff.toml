@@ -13,6 +13,7 @@ select = [
     "ERA",    # eradicate, https://beta.ruff.rs/docs/rules/#eradicate-era
     "EXE",    # flake8-executable, https://beta.ruff.rs/docs/rules/#flake8-executable-exe
     "F",      # pyflakes, https://beta.ruff.rs/docs/rules/#pyflakes-f
+    "FA",     # flake8-future-annotations, https://beta.ruff.rs/docs/rules/#flake8-future-annotations-fa
     "FBT",    # flake8-boolean-trap, https://beta.ruff.rs/docs/rules/#flake8-boolean-trap-fbt
     "FLY",    # flynt, https://beta.ruff.rs/docs/rules/#flynt-fly
     "G",      # flake8-logging-format, https://beta.ruff.rs/docs/rules/#flake8-logging-format-g

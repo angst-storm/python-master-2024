@@ -4,6 +4,8 @@
 и получает изображение соответствующее этому коду с ресурса https://http.cat/.
 """
 
+from __future__ import annotations
+
 import random
 from itertools import chain
 

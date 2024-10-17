@@ -5,6 +5,8 @@
 Печатает ID войны, имя агрессора и защищающегося, время объявления войны.
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
 
 import requests
