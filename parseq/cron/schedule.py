@@ -1,3 +1,5 @@
+import contextlib
+
 from apscheduler.jobstores.base import JobLookupError
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.date import DateTrigger
@@ -15,10 +17,8 @@ def schedule(scheduler: BackgroundScheduler, instance: Parser):
     """
     job_id = instance.job_id
 
-    try:
+    with contextlib.suppress(JobLookupError):
         scheduler.pause_job(job_id)
-    except JobLookupError:
-        pass
 
     if instance.scheduled is not None:
         try:

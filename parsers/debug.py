@@ -31,16 +31,13 @@ def pretty_print(outputs):
 
         try:
             print(content.decode())
-            return
         except UnicodeDecodeError:
-            pass
-
-        try:
-            image = Image.open(io.BytesIO(content))
-            image.show()
-            print("*showed*")
-        except UnidentifiedImageError:
-            print(content)
+            try:
+                image = Image.open(io.BytesIO(content))
+                image.show()
+                print("*showed*")
+            except UnidentifiedImageError:
+                print(content)
 
 
 if __name__ == "__main__":

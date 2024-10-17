@@ -1,17 +1,52 @@
 [lint]
 select = [
-    "E",      # pycodestyle-error, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w 
-    "F",      # pyflakes, https://beta.ruff.rs/docs/rules/#pyflakes-f 
-    "W",      # pycodestyle-warning, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w 
+    "A",      # flake8-builtins, https://beta.ruff.rs/docs/rules/#flake8-builtins-a
+    "B",      # flake8-bugbear, https://beta.ruff.rs/docs/rules/#flake8-bugbear-b
+    "BLE",    # flake8-blind-except, https://beta.ruff.rs/docs/rules/#flake8-blind-except-ble
+    "C90",    # mccabe, https://beta.ruff.rs/docs/rules/#mccabe-c90
+    "COM",    # flake8-commas, https://beta.ruff.rs/docs/rules/#flake8-commas-com
+    "DJ",     # flake8-django, https://beta.ruff.rs/docs/rules/#flake8-django-dj
+    "DTZ",    # flake8-datetimez, https://beta.ruff.rs/docs/rules/#flake8-datetimez-dtz
+    "E",      # pycodestyle-error, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
+    "EM",     # flake8-errmsg, https://beta.ruff.rs/docs/rules/#flake8-errmsg-em
+    "ERA",    # eradicate, https://beta.ruff.rs/docs/rules/#eradicate-era
+    "EXE",    # flake8-executable, https://beta.ruff.rs/docs/rules/#flake8-executable-exe
+    "F",      # pyflakes, https://beta.ruff.rs/docs/rules/#pyflakes-f
+    "FBT",    # flake8-boolean-trap, https://beta.ruff.rs/docs/rules/#flake8-boolean-trap-fbt
+    "FLY",    # flynt, https://beta.ruff.rs/docs/rules/#flynt-fly
+    "G",      # flake8-logging-format, https://beta.ruff.rs/docs/rules/#flake8-logging-format-g
+    "I",      # isort, https://beta.ruff.rs/docs/rules/#isort-i
+    "ICN",    # flake8-import-conventions, https://beta.ruff.rs/docs/rules/#flake8-import-conventions-icn
+    "INT",    # flake8-gettext, https://beta.ruff.rs/docs/rules/#flake8-gettext-int
+    "ISC",    # flake8-implicit-str-concat, https://beta.ruff.rs/docs/rules/#flake8-implicit-str-concat-isc
+    "N",      # pep8-naming, https://beta.ruff.rs/docs/rules/#pep8-naming-n
+    "PGH",    # pygrep-hooks, https://beta.ruff.rs/docs/rules/#pygrep-hooks-pgh
+    "PIE",    # flake8-pie, https://beta.ruff.rs/docs/rules/#flake8-pie-pie
     "PL",     # pylint, https://beta.ruff.rs/docs/rules/#pylint-pl
     "PLE",    # pylint-error, https://beta.ruff.rs/docs/rules/#error-ple
     "PLR",    # pylint-refactor, https://beta.ruff.rs/docs/rules/#refactor-plr
     "PLW",    # pylint-warning, https://beta.ruff.rs/docs/rules/#warning-plw
-    "I",      # isort, https://beta.ruff.rs/docs/rules/#isort-i 
-    "N",      # pep8-naming, https://beta.ruff.rs/docs/rules/#pep8-naming-n 
-    "TID",    # flake8-tidy-imports, https://beta.ruff.rs/docs/rules/#flake8-tidy-imports-tid
+    "PT",     # flake8-pytest-style, https://beta.ruff.rs/docs/rules/#flake8-pytest-style-pt
+    "PYI",    # flake8-pyi, https://beta.ruff.rs/docs/rules/#flake8-pyi-pyi
     "Q",      # flake8-quotes, https://beta.ruff.rs/docs/rules/#flake8-quotes-q
+    "RET",    # flake8-return, https://beta.ruff.rs/docs/rules/#flake8-return-ret
+    "RSE",    # flake8-raise, https://beta.ruff.rs/docs/rules/#flake8-raise-rse
     "S",      # flake8-bandit, https://beta.ruff.rs/docs/rules/#flake8-bandit-s
+    "SIM",    # flake8-simplify, https://beta.ruff.rs/docs/rules/#flake8-simplify-sim
+    "SLF",    # flake8-self, https://beta.ruff.rs/docs/rules/#flake8-self-slf
+    "T10",    # flake8-debugger, https://beta.ruff.rs/docs/rules/#flake8-debugger-t10
+    "TCH",    # flake8-type-checking, https://beta.ruff.rs/docs/rules/#flake8-type-checking-tch
+    "TD",     # flake8-todos, https://beta.ruff.rs/docs/rules/#flake8-todos-td
+    "TID",    # flake8-tidy-imports, https://beta.ruff.rs/docs/rules/#flake8-tidy-imports-tid
+    "TRY",    # tryceratops, https://beta.ruff.rs/docs/rules/#tryceratops-try
+    "UP",     # pyupgrade, https://beta.ruff.rs/docs/rules/#pyupgrade-up
+    "W",      # pycodestyle-warning, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
+    "YTT",    # flake8-2020, https://beta.ruff.rs/docs/rules/#flake8-2020-ytt
+]
+
+ignore = [
+    "COM812", # missing trailing comma in a tuple
+    "ISC001", # implicit string concatenation
 ]
 
 [lint.per-file-ignores]

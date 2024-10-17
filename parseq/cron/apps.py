@@ -18,4 +18,4 @@ class CronConfig(AppConfig):
         for parser in Parser.objects.all():
             schedule(scheduler, parser)
 
-        scheduler.start()
+        return scheduler.start()

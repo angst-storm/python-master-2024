@@ -16,8 +16,8 @@ class CronTestCase(TestCase):
         self.user = User.objects.create_superuser(
             self.username, "admin@example.com", self.password
         )
-        f = open("../parsers/httpcat.py")
-        path = default_storage.save("test/httpcat.py", File(f))
+        with open("../parsers/httpcat.py") as script:
+            path = default_storage.save("test/httpcat.py", File(script))
         self.parser = Parser.objects.create(
             name="httpcat",
             description="Download random image with HTTP Cat.",
@@ -31,6 +31,6 @@ class CronTestCase(TestCase):
         self.client.post(change_url, data)
         self.client.logout()
         tasks = Task.tasks.all()
-        self.assertTrue(len(tasks) > 0)
+        assert len(tasks) > 0
         task_message = Message.decode(bytes(tasks.first().message_data))
-        self.assertEqual(task_message.args[1], self.parser.id)
+        assert self.parser.id == task_message.args[1]

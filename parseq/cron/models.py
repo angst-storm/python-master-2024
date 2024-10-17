@@ -9,6 +9,9 @@ class Parser(models.Model):
     scheduled = models.DateTimeField(null=True, blank=True)
     repeat_after = models.DurationField(null=True, blank=True)
 
+    def __str__(self):
+        return f"Parser({self.id}, {self.name})"
+
     @property
     def job_id(self):
         return str(self.id)
