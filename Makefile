@@ -49,3 +49,7 @@ django-test:
 test: parsers-test django-test
 
 init: install migrate createsuperuser
+
+ruff:
+	ruff format
+	ruff check

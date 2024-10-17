@@ -1,0 +1,19 @@
+[lint]
+select = [
+    "E",      # pycodestyle-error, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w 
+    "F",      # pyflakes, https://beta.ruff.rs/docs/rules/#pyflakes-f 
+    "W",      # pycodestyle-warning, https://beta.ruff.rs/docs/rules/#pycodestyle-e-w 
+    "PL",     # pylint, https://beta.ruff.rs/docs/rules/#pylint-pl
+    "PLE",    # pylint-error, https://beta.ruff.rs/docs/rules/#error-ple
+    "PLR",    # pylint-refactor, https://beta.ruff.rs/docs/rules/#refactor-plr
+    "PLW",    # pylint-warning, https://beta.ruff.rs/docs/rules/#warning-plw
+    "I",      # isort, https://beta.ruff.rs/docs/rules/#isort-i 
+    "N",      # pep8-naming, https://beta.ruff.rs/docs/rules/#pep8-naming-n 
+    "TID",    # flake8-tidy-imports, https://beta.ruff.rs/docs/rules/#flake8-tidy-imports-tid
+    "Q",      # flake8-quotes, https://beta.ruff.rs/docs/rules/#flake8-quotes-q
+    "S",      # flake8-bandit, https://beta.ruff.rs/docs/rules/#flake8-bandit-s
+]
+
+[lint.per-file-ignores]
+"parsers/test.py" = ["S101"]
+"parseq/cron/tests.py" = ["S101", "S105"]

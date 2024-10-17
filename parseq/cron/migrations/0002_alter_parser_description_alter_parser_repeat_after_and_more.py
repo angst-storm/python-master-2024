@@ -4,30 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cron', '0001_initial'),
+        ("cron", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='parser',
-            name='description',
+            model_name="parser",
+            name="description",
             field=models.TextField(blank=True),
         ),
         migrations.AlterField(
-            model_name='parser',
-            name='repeat_after',
+            model_name="parser",
+            name="repeat_after",
             field=models.DurationField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='parser',
-            name='scheduled',
+            model_name="parser",
+            name="scheduled",
             field=models.DateTimeField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='parser',
-            name='script',
-            field=models.FileField(upload_to='.parsers'),
+            model_name="parser",
+            name="script",
+            field=models.FileField(upload_to=".parsers"),
         ),
     ]

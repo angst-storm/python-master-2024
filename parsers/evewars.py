@@ -1,7 +1,8 @@
 """
-Парсер представляет в человекочитаемом виде информацию о войнах в 
-многопользовательской онлайн-игре Eve Online, объявленных за последние 24 часа (не более ста войн). 
-Выводит имя альянса или корпорации агрессора и защищающегося и время объявления войны.
+Парсер представляет в человекочитаемом виде информацию о войнах
+в многопользовательской онлайн-игре Eve Online,
+объявленных за последние 24 часа (не более ста войн).
+Выводит ID войны, имя агрессора и защищающегося, время объявления войны.
 """
 
 from datetime import datetime, timezone
@@ -10,20 +11,27 @@ import requests
 
 BASE_URL = "https://esi.evetech.net/latest"
 MAX_WARS = 100
+LAST_HOURS_COUNT = 24
+TIMEOUT_SEC = 60
 
 
 def get_participant_data(participant):
     """
     Запрашивает информацию об участнике войны
-    
+
     Args:
-        participant (dict): Словарь с полем {"alliance_id": 1} для альянса 
+        participant (dict): Словарь с полем {"alliance_id": 1} для альянса
             или {"corporation_id": 1} для корпорации
     """
     if "alliance_id" in participant:
-        response = requests.get(f'{BASE_URL}/alliances/{participant["alliance_id"]}')
+        response = requests.get(
+            f'{BASE_URL}/alliances/{participant["alliance_id"]}', timeout=TIMEOUT_SEC
+        )
     else:
-        response = requests.get(f'{BASE_URL}/corporations/{participant["corporation_id"]}')
+        response = requests.get(
+            f'{BASE_URL}/corporations/{participant["corporation_id"]}',
+            timeout=TIMEOUT_SEC,
+        )
 
     return response.json()
 
@@ -50,9 +58,9 @@ def is_power_of_2(num):
 
 
 def parse() -> dict[str, bytearray]:
-    """Функция парсинга - запрашивает список войн и обрабатывает каждую по очереди, 
+    """Функция парсинга - запрашивает список войн и обрабатывает каждую по очереди,
     запрашивая информацию об участниках и выводя информацию в заданном формате."""
-    wars_resp = requests.get(f"{BASE_URL}/wars")
+    wars_resp = requests.get(f"{BASE_URL}/wars", timeout=TIMEOUT_SEC)
     wars = wars_resp.json()
 
     result = ""
@@ -60,12 +68,12 @@ def parse() -> dict[str, bytearray]:
         if is_power_of_2(i + 1):
             print(f"Parsing: {i+1}%")
 
-        war_resp = requests.get(f"{BASE_URL}/wars/{war_id}")
+        war_resp = requests.get(f"{BASE_URL}/wars/{war_id}", timeout=TIMEOUT_SEC)
         war = war_resp.json()
 
         hours_delta = int((now_utc() - parse_declared(war)).total_seconds()) // 3600
 
-        if hours_delta <= 24:
+        if hours_delta <= LAST_HOURS_COUNT:
             aggressor = get_participant_data(war["aggressor"])
             defender = get_participant_data(war["defender"])
             result += war_description(war, aggressor, defender, hours_delta) + "\n"
