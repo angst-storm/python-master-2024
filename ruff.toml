@@ -1,3 +1,5 @@
+line-length = 79
+
 [lint]
 
 # Пропустил:

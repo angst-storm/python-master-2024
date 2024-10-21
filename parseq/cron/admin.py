@@ -18,7 +18,7 @@ def get_args(task):
 
 @admin.action(description="Run selected parsers")
 def run(modeladmin, request, queryset):
-    """Django Admin Action, который cтавит в очередь Dramatiq все выделенные парсеры."""
+    """Admin Action, cтавит в очередь Dramatiq все выделенные парсеры."""
     for parser in queryset.all():
         send_run_actor(parser.id)
 

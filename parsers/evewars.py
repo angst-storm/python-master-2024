@@ -1,7 +1,8 @@
 """Парсер войн EVE Online.
 
 Парсер представляет в человекочитаемом виде информацию о войнах,
-объявленных в многопользовательской онлайн-игре Eve Online за последние 24 часа.
+объявленных в многопользовательской онлайн-игре Eve Online
+за последние 24 часа.
 Печатает ID войны, имя агрессора и защищающегося, время объявления войны.
 """
 
@@ -27,7 +28,8 @@ def get_participant_data(participant):
     """
     if "alliance_id" in participant:
         response = requests.get(
-            f'{BASE_URL}/alliances/{participant["alliance_id"]}', timeout=TIMEOUT_SEC
+            f'{BASE_URL}/alliances/{participant["alliance_id"]}',
+            timeout=TIMEOUT_SEC,
         )
     else:
         response = requests.get(
@@ -51,12 +53,18 @@ def war_description(war, aggressor, defender, hours_delta):
 
 
 def now_utc():
-    """Возвращает текущее время в часовом поясе UTC в формате YYYY-MM-DDThh:mm:ss."""
+    """Возвращает текущее время в часовом поясе UTC.
+
+    Приводит время к формату YYYY-MM-DDThh:mm:ss.
+    """
     return datetime.now(timezone.utc).replace(tzinfo=None, microsecond=0)
 
 
 def parse_declared(war):
-    """Получает время объявления войны и приводит к формату YYYY-MM-DDThh:mm:ss."""
+    """Получает время объявления войны.
+
+    Приводит время к формату YYYY-MM-DDThh:mm:ss.
+    """
     return datetime.fromisoformat(war["declared"][:-1])
 
 
@@ -79,14 +87,20 @@ def parse() -> dict[str, bytearray]:
         if is_power_of_2(i + 1):
             print(f"Parsing: {i+1}%")
 
-        war_resp = requests.get(f"{BASE_URL}/wars/{war_id}", timeout=TIMEOUT_SEC)
+        war_resp = requests.get(
+            f"{BASE_URL}/wars/{war_id}", timeout=TIMEOUT_SEC
+        )
         war = war_resp.json()
 
-        hours_delta = int((now_utc() - parse_declared(war)).total_seconds()) // 3600
+        hours_delta = (
+            int((now_utc() - parse_declared(war)).total_seconds()) // 3600
+        )
 
         if hours_delta <= LAST_HOURS_COUNT:
             aggressor = get_participant_data(war["aggressor"])
             defender = get_participant_data(war["defender"])
-            result += war_description(war, aggressor, defender, hours_delta) + "\n"
+            result += (
+                war_description(war, aggressor, defender, hours_delta) + "\n"
+            )
 
     return {"result.txt": str.encode(result)}

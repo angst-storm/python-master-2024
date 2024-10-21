@@ -36,12 +36,15 @@ def schedule(scheduler: BackgroundScheduler, instance: Parser):
             )
 
         if instance.repeat_after is None:
-            scheduler.reschedule_job(job_id, trigger=DateTrigger(instance.scheduled))
+            scheduler.reschedule_job(
+                job_id, trigger=DateTrigger(instance.scheduled)
+            )
         else:
             scheduler.reschedule_job(
                 job_id,
                 trigger=IntervalTrigger(
-                    seconds=instance.repeat_after.seconds, start_date=instance.scheduled
+                    seconds=instance.repeat_after.seconds,
+                    start_date=instance.scheduled,
                 ),
             )
 

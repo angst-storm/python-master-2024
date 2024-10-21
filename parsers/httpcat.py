@@ -31,6 +31,8 @@ def parse() -> dict[str, bytearray]:
     """
     status_code = random.choice(http_codes)  # noqa: S311 not important
 
-    response = requests.get(f"https://http.cat/{status_code}", timeout=TIMEOUT_SEC)
+    response = requests.get(
+        f"https://http.cat/{status_code}", timeout=TIMEOUT_SEC
+    )
 
     return {"result.jpg": response.content}
