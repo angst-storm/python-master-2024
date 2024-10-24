@@ -166,3 +166,4 @@ cython_debug/
 parseq/media
 .DS_Store
 !.env
+.ruff_cache
