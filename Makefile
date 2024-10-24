@@ -53,3 +53,6 @@ init: install migrate createsuperuser
 ruff:
 	ruff format
 	ruff check
+
+git-clean:
+	git clean -f -d -X
