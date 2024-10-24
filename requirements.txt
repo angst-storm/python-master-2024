@@ -8,3 +8,4 @@ python-dotenv>=1.0
 psycopg2-binary>=2.9
 responses>=0.25
 freezegun>=1.5
+ruff>=0.7
